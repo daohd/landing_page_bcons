@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import LeadForm from "./LeadForm";
 
-const DELAY_MS = 20_000; // hiện popup sau 20 giây
+const DELAY_MS = 20_000; // hiện popup sau 20 giây kể từ khi mở trang
+const RETRY_MS = 15_000; // nếu lúc đó khách đang ở form thì 15 giây sau thử lại
 const STORAGE_KEY = "lead-popup-seen";
 
 export default function LeadPopup() {
@@ -29,9 +30,13 @@ export default function LeadPopup() {
       cleanup();
     };
 
-    // Thử lần đầu sau DELAY_MS, sau đó cứ 15 giây kiểm tra lại
-    const timer = window.setTimeout(show, DELAY_MS);
-    const retry = window.setInterval(show, 15_000);
+    // Thử lần đầu sau DELAY_MS. Nếu lúc đó khách đang ở ngay form thì
+    // cứ 15 giây thử lại, chờ khi khách rời khỏi form mới hiện.
+    let retry = 0;
+    const timer = window.setTimeout(() => {
+      show();
+      retry = window.setInterval(show, RETRY_MS);
+    }, DELAY_MS);
 
     // Hiện luôn khi người dùng có ý định rời trang (di chuột lên thanh địa chỉ)
     const onLeave = (e: MouseEvent) => {
