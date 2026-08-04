@@ -67,10 +67,17 @@ export async function POST(req: Request) {
 
   const tasks: Promise<unknown>[] = [];
 
+  // Ném lỗi khi API trả về mã lỗi, để biết chính xác lead có gửi được hay không
+  async function post(label: string, url: string, init: RequestInit) {
+    const res = await fetch(url, init);
+    if (!res.ok) throw new Error(`${label} ${res.status}: ${await res.text()}`);
+    return res;
+  }
+
   // 1) Gửi về Google Sheet (Google Apps Script Web App)
   if (process.env.GOOGLE_SHEET_WEBHOOK_URL) {
     tasks.push(
-      fetch(process.env.GOOGLE_SHEET_WEBHOOK_URL, {
+      post("sheet", process.env.GOOGLE_SHEET_WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(lead),
@@ -81,7 +88,7 @@ export async function POST(req: Request) {
   // 2) Gửi email qua Resend
   if (process.env.RESEND_API_KEY && process.env.LEAD_TO_EMAIL) {
     tasks.push(
-      fetch("https://api.resend.com/emails", {
+      post("resend", "https://api.resend.com/emails", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
@@ -90,13 +97,9 @@ export async function POST(req: Request) {
         body: JSON.stringify({
           from: process.env.LEAD_FROM_EMAIL ?? "onboarding@resend.dev",
           to: process.env.LEAD_TO_EMAIL.split(",").map((s) => s.trim()),
-          subject: `[Lead] ${lead.name} - ${lead.phone} - ${site.name}`,
-          html: `<h2>Khách hàng mới từ website</h2>
-<table cellpadding="8" style="border-collapse:collapse" border="1">
-${Object.entries(lead)
-  .map(([k, v]) => `<tr><td><b>${k}</b></td><td>${String(v).replace(/</g, "&lt;")}</td></tr>`)
-  .join("")}
-</table>`,
+          reply_to: lead.email || undefined,
+          subject: `🔔 Khách mới: ${lead.name} - ${lead.phone}`,
+          html: leadEmailHtml(lead),
         }),
       }),
     );
@@ -105,10 +108,50 @@ ${Object.entries(lead)
   const results = await Promise.allSettled(tasks);
   const delivered = results.some((r) => r.status === "fulfilled");
 
-  // Chưa cấu hình nơi nhận → vẫn ghi log để không mất lead
-  if (tasks.length === 0 || !delivered) {
-    console.info("[LEAD]", JSON.stringify(lead));
+  for (const r of results) {
+    if (r.status === "rejected") console.error("[LEAD] gửi thất bại:", r.reason);
   }
 
+  // Chưa cấu hình nơi nhận, hoặc gửi thất bại hết → ghi log để không mất khách
+  if (!delivered) console.info("[LEAD]", JSON.stringify(lead));
+
   return NextResponse.json({ ok: true });
+}
+
+const LABELS: Record<string, string> = {
+  time: "Thời gian",
+  name: "Họ tên",
+  phone: "Điện thoại",
+  email: "Email",
+  interest: "Quan tâm",
+  note: "Ghi chú",
+  source: "Nguồn form",
+  page: "Trang",
+  ip: "IP",
+};
+
+function leadEmailHtml(lead: Record<string, string>) {
+  const esc = (v: string) => String(v).replace(/</g, "&lt;");
+  const rows = Object.entries(lead)
+    .filter(([, v]) => v)
+    .map(
+      ([k, v]) =>
+        `<tr><td style="padding:10px 14px;border-bottom:1px solid #e4ecf6;color:#64748b;white-space:nowrap">${
+          LABELS[k] ?? k
+        }</td><td style="padding:10px 14px;border-bottom:1px solid #e4ecf6;color:#0b1f3a;font-weight:600">${esc(v)}</td></tr>`,
+    )
+    .join("");
+
+  return `<div style="font-family:system-ui,-apple-system,sans-serif;background:#f4f7fb;padding:24px">
+  <div style="max-width:560px;margin:0 auto;background:#fff;border-radius:14px;overflow:hidden;border:1px solid #e4ecf6">
+    <div style="background:#0b1f3a;padding:20px 24px">
+      <p style="margin:0;color:#c9a227;font-size:12px;letter-spacing:2px;font-weight:700">${site.name.toUpperCase()}</p>
+      <h1 style="margin:6px 0 0;color:#fff;font-size:18px">Có khách hàng đăng ký mới</h1>
+    </div>
+    <table style="width:100%;border-collapse:collapse;font-size:14px">${rows}</table>
+    <div style="padding:18px 24px;background:#f4f7fb">
+      <a href="tel:${lead.phone}" style="display:inline-block;background:#c9a227;color:#0b1f3a;padding:12px 22px;border-radius:99px;text-decoration:none;font-weight:700;font-size:13px">📞 Gọi ngay ${lead.phone}</a>
+    </div>
+  </div>
+</div>`;
 }

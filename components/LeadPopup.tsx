@@ -12,14 +12,28 @@ export default function LeadPopup() {
   useEffect(() => {
     if (sessionStorage.getItem(STORAGE_KEY)) return;
 
+    // Đang nhìn thẳng vào form thì đừng chen ngang
+    const formInView = () =>
+      ["lien-he", "tai-lieu"].some((id) => {
+        const rect = document.getElementById(id)?.getBoundingClientRect();
+        return rect && rect.top < window.innerHeight && rect.bottom > 0;
+      });
+
     const show = () => {
+      // Khách đã gửi thông tin rồi thì thôi
+      if (sessionStorage.getItem("lead-sent")) return cleanup();
+      // Đang ở ngay form thì chờ lượt kiểm tra sau, đừng chen ngang
+      if (formInView()) return;
       setOpen(true);
       sessionStorage.setItem(STORAGE_KEY, "1");
       cleanup();
     };
 
+    // Thử lần đầu sau DELAY_MS, sau đó cứ 15 giây kiểm tra lại
     const timer = window.setTimeout(show, DELAY_MS);
-    // hiện luôn khi người dùng có ý định rời trang (di chuột lên thanh địa chỉ)
+    const retry = window.setInterval(show, 15_000);
+
+    // Hiện luôn khi người dùng có ý định rời trang (di chuột lên thanh địa chỉ)
     const onLeave = (e: MouseEvent) => {
       if (e.clientY <= 0) show();
     };
@@ -27,6 +41,7 @@ export default function LeadPopup() {
 
     function cleanup() {
       window.clearTimeout(timer);
+      window.clearInterval(retry);
       document.removeEventListener("mouseout", onLeave);
     }
     return cleanup;
@@ -72,9 +87,9 @@ export default function LeadPopup() {
           Nhận bảng giá & giỏ hàng mới nhất
         </h2>
         <p className="mt-2 mb-5 text-sm text-white/70">
-          Chiết khấu đến 8% và quà tặng nội thất 100 triệu cho 50 khách hàng đầu tiên.
+          Để lại số điện thoại, chuyên viên gọi lại trong 15 phút tư vấn miễn phí.
         </p>
-        <LeadForm source="popup" />
+        <LeadForm source="popup" compact submitLabel="NHẬN BẢNG GIÁ NGAY" />
       </div>
     </div>
   );

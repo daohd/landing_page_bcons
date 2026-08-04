@@ -19,8 +19,8 @@ export default function Hero() {
       </div>
 
       {/* Lớp phủ: tối bên trái để chữ nổi, sáng dần sang phải */}
-      <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-950/75 to-navy-950/25" />
-      <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-navy-950/60" />
+      <div className="absolute inset-0 bg-linear-to-r from-navy-950/95 via-navy-950/70 to-navy-950/15" />
+      <div className="absolute inset-0 bg-linear-to-t from-navy-950 via-transparent to-navy-950/55" />
 
       <div className="relative mx-auto w-full max-w-6xl px-5 pt-28 pb-24 sm:px-6 lg:pt-32">
         <p className="reveal is-visible mb-6 inline-flex items-center gap-2.5 rounded-full border border-gold-500/40 bg-gold-500/10 py-2 pr-5 pl-3 text-[11px] font-bold tracking-[0.2em] text-gold-400 uppercase backdrop-blur-sm">

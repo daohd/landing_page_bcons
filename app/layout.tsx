@@ -53,6 +53,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="vi" className={`${beVietnam.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
+        {/* Tắt JS thì bỏ luôn hiệu ứng, tránh nội dung bị ẩn */}
+        <noscript>
+          <style>{`.reveal{opacity:1!important;animation:none!important}`}</style>
+        </noscript>
         {children}
         <Analytics />
       </body>

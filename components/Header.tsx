@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { site } from "@/data/site";
 
@@ -23,15 +24,18 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:px-6 lg:h-20">
-        <a href="#top" className="flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-md bg-gold-500 font-bold text-navy-900">
-            B
-          </span>
-          <span className="text-sm leading-tight font-bold text-white sm:text-base">
-            BCONS
-            <span className="block text-[10px] font-normal tracking-[0.25em] text-gold-400 sm:text-[11px]">
-              CENTRAL PARK
-            </span>
+        <a href="#top" className="flex items-center gap-3">
+          <Image
+            src="/images/logo-bcons.png"
+            alt="Logo Bcons Group"
+            width={96}
+            height={52}
+            priority
+            className="h-11 w-auto brightness-0 invert lg:h-12"
+          />
+          <span className="hidden border-l border-white/25 pl-3 text-[11px] leading-tight font-bold tracking-[0.2em] text-gold-400 sm:block">
+            CENTRAL
+            <span className="block">PARK</span>
           </span>
         </a>
 

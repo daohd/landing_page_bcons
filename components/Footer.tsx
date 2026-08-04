@@ -6,7 +6,8 @@ export default function Footer() {
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-3">
         <div>
           <p className="text-lg font-bold text-white">{site.name}</p>
-          <p className="mt-1 text-sm text-gold-400">{site.tagline}</p>
+          <p className="mt-0.5 text-xs text-white/40">{site.altName}</p>
+          <p className="mt-1.5 text-sm text-gold-400">{site.tagline}</p>
           <p className="mt-4 text-sm leading-relaxed text-white/60">{site.description}</p>
         </div>
 

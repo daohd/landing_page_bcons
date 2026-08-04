@@ -1,4 +1,5 @@
-import { amenities } from "@/data/site";
+import Image from "next/image";
+import { amenities, amenityImages } from "@/data/site";
 import Reveal from "./Reveal";
 import { Section, SectionTitle } from "./ui";
 
@@ -7,8 +8,8 @@ export default function Amenities() {
     <Section id="tien-ich" className="bg-navy-50">
       <SectionTitle
         eyebrow="Tiện ích"
-        title="Hệ tiện ích nội khu đẳng cấp"
-        desc="Toàn bộ nhu cầu sống, học tập, giải trí và chăm sóc sức khoẻ nằm gọn trong khuôn viên dự án."
+        title="Hệ sinh thái All-in-One"
+        desc="Chuỗi tiện ích nội khu hiện đại và đồng bộ, đáp ứng đầy đủ nhu cầu sống, học tập, mua sắm và giải trí mà không cần rời khỏi khu phức hợp."
       />
 
       <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -27,6 +28,22 @@ export default function Amenities() {
           </Reveal>
         ))}
       </ul>
+
+      <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        {amenityImages.map((img, i) => (
+          <Reveal key={img.src} delay={(i % 2) * 100}>
+            <div className="relative aspect-16/10 overflow-hidden rounded-2xl">
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                sizes="(min-width: 640px) 50vw, 100vw"
+                className="object-cover transition-transform duration-700 hover:scale-105"
+              />
+            </div>
+          </Reveal>
+        ))}
+      </div>
     </Section>
   );
 }

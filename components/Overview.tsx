@@ -19,7 +19,7 @@ export default function Overview() {
             <div className="absolute -inset-4 -z-10 hidden rounded-2xl border-2 border-gold-500/40 lg:block" />
             <div className="relative aspect-4/3 overflow-hidden rounded-2xl shadow-2xl shadow-navy-900/20">
               <Image
-                src="/images/tong-quan.svg"
+                src={overview.image}
                 alt={`Phối cảnh ${site.name}`}
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"

@@ -1,6 +1,7 @@
 import Amenities from "@/components/Amenities";
 import BanksLegal from "@/components/BanksLegal";
 import Contact from "@/components/Contact";
+import Documents from "@/components/Documents";
 import FloatingButtons from "@/components/FloatingButtons";
 import FloorPlans from "@/components/FloorPlans";
 import Footer from "@/components/Footer";
@@ -13,6 +14,7 @@ import News from "@/components/News";
 import Overview from "@/components/Overview";
 import Pricing from "@/components/Pricing";
 import Progress from "@/components/Progress";
+import Usps from "@/components/Usps";
 import { faqs, hero, overview, pricing, site } from "@/data/site";
 
 // Dữ liệu có cấu trúc cho Google (Schema.org)
@@ -20,15 +22,17 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Residence",
+      "@type": "ApartmentComplex",
       name: site.name,
+      alternateName: ["Bcons Tam Hiệp", "Bcons Biên Hòa", "Bcons Phan Trung"],
       description: site.description,
       url: site.domain,
+      numberOfAccommodationUnits: 2820,
       address: {
         "@type": "PostalAddress",
-        streetAddress: site.address,
-        addressLocality: "Dĩ An",
-        addressRegion: "Bình Dương",
+        streetAddress: "236 đường Phan Trung, phường Tam Hiệp",
+        addressLocality: "Biên Hòa",
+        addressRegion: "Đồng Nai",
         addressCountry: "VN",
       },
       amenityFeature: overview.facts.map((f) => ({
@@ -68,9 +72,9 @@ const jsonLd = {
       offers: {
         "@type": "AggregateOffer",
         priceCurrency: "VND",
-        lowPrice: 1200000000,
-        highPrice: 2950000000,
-        offerCount: 1200,
+        lowPrice: 2000000000,
+        highPrice: 3800000000,
+        offerCount: 2820,
       },
     },
   ],
@@ -86,12 +90,14 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <Hero />
+        <Usps />
         <Overview />
         <Location />
         <Amenities />
         <FloorPlans />
         <Gallery />
         <Pricing />
+        <Documents />
         <Progress />
         <BanksLegal />
         <News />
@@ -105,5 +111,5 @@ export default function Home() {
 }
 
 export const metadata = {
-  title: `${site.name} — ${hero.subtitle}`,
+  title: `${site.name} (${site.altName}) — ${hero.eyebrow}`,
 };

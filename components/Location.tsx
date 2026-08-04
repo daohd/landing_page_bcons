@@ -6,49 +6,50 @@ import { Section, SectionTitle } from "./ui";
 export default function Location() {
   return (
     <Section id="vi-tri" className="relative overflow-hidden bg-navy-900">
-      {/* vệt sáng nhẹ ở nền cho đỡ phẳng */}
       <div className="pointer-events-none absolute -top-40 -right-40 h-96 w-96 rounded-full bg-gold-500/10 blur-3xl" />
 
       <SectionTitle light eyebrow="Vị trí" title="Vị trí kết nối vàng" desc={location.intro} />
 
-      <div className="grid gap-8 lg:grid-cols-5">
-        <Reveal className="lg:col-span-3">
-          <div className="relative aspect-4/3 overflow-hidden rounded-2xl border border-white/10">
-            <Image
-              src="/images/vi-tri.svg"
-              alt={`Bản đồ vị trí ${site.name}`}
-              fill
-              sizes="(min-width: 1024px) 60vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-        </Reveal>
+      <Reveal>
+        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white">
+          <Image
+            src={location.image}
+            alt={`Bản đồ liên kết vùng ${site.name}`}
+            width={1536}
+            height={1024}
+            sizes="(min-width: 1024px) 1100px, 100vw"
+            className="h-auto w-full"
+          />
+        </div>
+      </Reveal>
 
-        <Reveal delay={120} className="lg:col-span-2">
-          <ul className="divide-y divide-white/10 overflow-hidden rounded-2xl border border-white/15 bg-white/4">
-            {location.distances.map((d) => (
-              <li
-                key={d.place}
-                className="flex items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-white/6"
-              >
-                <span className="flex items-center gap-3 text-sm text-white/85">
-                  <span className="text-gold-500">◆</span>
-                  {d.place}
+      <div className="mt-10 grid gap-5 sm:grid-cols-2">
+        {location.groups.map((g, i) => (
+          <Reveal key={g.name} delay={(i % 2) * 100}>
+            <div className="h-full rounded-2xl border border-white/12 bg-white/4 p-6">
+              <h3 className="flex items-center gap-3 text-sm font-bold tracking-wider text-white uppercase">
+                <span className="grid h-10 w-10 place-items-center rounded-xl bg-gold-500/15 text-lg">
+                  {g.icon}
                 </span>
-                <span className="shrink-0 text-right">
-                  <span className="block text-sm font-bold text-gold-400">{d.time}</span>
-                  <span className="block text-[11px] text-white/45">{d.km}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
+                {g.name}
+              </h3>
+              <ul className="mt-4 divide-y divide-white/8">
+                {g.items.map((it) => (
+                  <li key={it.place} className="flex items-center justify-between gap-4 py-2.5">
+                    <span className="text-sm text-white/75">{it.place}</span>
+                    <span className="shrink-0 text-sm font-bold text-gold-400">{it.value}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        ))}
       </div>
 
       <Reveal>
-        <div className="mt-8 aspect-video overflow-hidden rounded-2xl border border-white/15 sm:aspect-21/9">
+        <div className="mt-8 overflow-hidden rounded-2xl border border-white/15">
           <iframe
-            className="h-full w-full"
+            className="aspect-video w-full sm:aspect-21/9"
             src={site.mapEmbed}
             title={`Bản đồ Google Maps ${site.name}`}
             loading="lazy"

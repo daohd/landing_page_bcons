@@ -28,14 +28,21 @@ Những chỗ **bắt buộc phải thay** (đang là số/địa chỉ giả):
 
 ## 2. Thay ảnh
 
-Ảnh hiện tại là placeholder tự sinh trong `public/images/*.svg`.
+Ảnh hiện tại tải từ trang mẫu, nằm trong `public/images/`. Thay ảnh thật:
 
-1. Bỏ ảnh thật (`.jpg` / `.webp`) vào `public/images/`.
-2. Sửa đường dẫn tương ứng trong `data/site.ts` (vd `/images/hero.jpg`).
-3. Khi đã thay hết ảnh SVG, có thể xoá `dangerouslyAllowSVG` trong `next.config.ts`.
+1. Bỏ ảnh mới vào `public/images/` (khuyến nghị `.jpg` hoặc `.webp`).
+2. Sửa đường dẫn tương ứng trong `data/site.ts`.
 
 Kích thước khuyến nghị: hero 1920×1080, mặt bằng 1200×900, nhà mẫu 1200×900.
-Tạo lại placeholder bất kỳ lúc nào: `node scripts/gen-placeholders.mjs`.
+Tải lại toàn bộ ảnh từ trang mẫu: `bash scripts/fetch-images.sh`.
+
+**Chưa có mặt bằng 1PN và 3PN** — trong `data/site.ts` hai loại căn này để
+`image: ""` nên web hiện ô "liên hệ nhận mặt bằng". Có file thật thì điền đường dẫn vào.
+
+### Tài liệu tải về
+
+`public/tai-lieu/` đang chứa 4 file PDF **mẫu** (nội dung trống). Thay bằng file thật
+với đúng tên file, hoặc sửa `documents` trong `data/site.ts`.
 
 ## 3. Nhận thông tin khách đăng ký
 
@@ -67,10 +74,14 @@ function doPost(e) {
    - Ai có quyền truy cập: **Bất kỳ ai**
 4. Copy URL Web App → dán vào biến `GOOGLE_SHEET_WEBHOOK_URL`.
 
-### Cách B — Email qua Resend
+### Cách B — Email qua Resend ✅ (đang dùng)
 
 1. Đăng ký [resend.com](https://resend.com) (free 3.000 email/tháng), tạo API key.
 2. Khai báo `RESEND_API_KEY` và `LEAD_TO_EMAIL` (nhiều email thì cách nhau dấu phẩy).
+
+⚠️ Khi chưa xác minh domain riêng, Resend chỉ cho gửi tới **email của chính chủ tài khoản**.
+Muốn gửi tới địa chỉ khác: vào Resend → Domains → thêm domain và xác minh DNS,
+rồi đổi `LEAD_FROM_EMAIL` sang email thuộc domain đó.
 
 Đã có sẵn: kiểm tra định dạng SĐT, bẫy honeypot chống bot, giới hạn 5 lượt/10 phút mỗi IP.
 
