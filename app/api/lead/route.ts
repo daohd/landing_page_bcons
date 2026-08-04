@@ -75,13 +75,22 @@ export async function POST(req: Request) {
   }
 
   // 1) Gửi về Google Sheet (Google Apps Script Web App)
+  // Apps Script chạy xong doPost sẽ trả 302 sang googleusercontent để hiện kết quả.
+  // Không đi theo redirect: 302 ở đây nghĩa là script đã chạy và đã ghi vào sheet.
   if (process.env.GOOGLE_SHEET_WEBHOOK_URL) {
     tasks.push(
-      post("sheet", process.env.GOOGLE_SHEET_WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(lead),
-      }),
+      (async () => {
+        const res = await fetch(process.env.GOOGLE_SHEET_WEBHOOK_URL!, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(lead),
+          redirect: "manual",
+        });
+        if (res.status !== 302 && !res.ok) {
+          throw new Error(`sheet ${res.status}: ${await res.text()}`);
+        }
+        return res;
+      })(),
     );
   }
 
