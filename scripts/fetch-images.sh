@@ -52,7 +52,6 @@ get le-dong-tho-1.jpg     "$BASE/le-dong-tho-khu-nha-o-cao-tang-bcons-tam-hiep-1
 get le-dong-tho-2.jpg     "$BASE/le-dong-tho-khu-nha-o-cao-tang-bcons-tam-hiep-2-scaled-1.jpg"
 
 # Pháp lý & logo
-get phap-ly.png           "https://bcons-centercity.vn/wp-content/uploads/2022/06/phap-ly-du-an.png"
 get logo-bcons.png        "$BASE/cropped-logo-bcons-1024x553-1.png"
 
 echo "Xong. Kiểm tra: ls -lh $OUT"

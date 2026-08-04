@@ -48,13 +48,13 @@ export default function BanksLegal() {
             </ul>
           </div>
 
-          <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-white lg:col-span-2">
+          <div className="relative aspect-4/3 overflow-hidden rounded-2xl lg:col-span-2">
             <Image
               src={legal.image}
-              alt="Hồ sơ pháp lý dự án"
+              alt="Lễ động thổ dự án Bcons Central Park"
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"
-              className="object-contain p-3"
+              className="object-cover"
             />
           </div>
         </div>

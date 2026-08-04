@@ -13,10 +13,10 @@ export const site = {
     "Bcons Central Park (Bcons Tam Hiệp) — dự án căn hộ cao tầng thứ 21 của Tập đoàn Bcons tại 236 Phan Trung, phường Tam Hiệp, TP. Biên Hòa, Đồng Nai. Tổng vốn 4.500 tỷ, quy mô gần 3ha, 2.820 căn hộ. Giá dự kiến từ 45 triệu/m².",
 
   // ——— Liên hệ ———
-  hotline: "0376 795 310",
-  zalo: "0376795310",
+  hotline: "0976 830 848",
+  zalo: "0976830848",
   email: "daohd0412@gmail.com",
-  facebook: "https://facebook.com/",
+  facebook: "https://www.facebook.com/thuhienbcons",
   address: "236 đường Phan Trung, phường Tam Hiệp, TP. Biên Hòa, tỉnh Đồng Nai",
   mapEmbed:
     "https://www.google.com/maps?q=236+Phan+Trung,+Tam+Hiep,+Bien+Hoa,+Dong+Nai&output=embed",
@@ -262,7 +262,8 @@ export const banks = [
 export const legal = {
   intro:
     "Bcons Central Park được phát triển trên quỹ đất sạch, nguồn gốc minh bạch, do chủ đầu tư sở hữu thông qua hình thức đấu giá công khai theo quy định pháp luật.",
-  image: "/images/phap-ly.png",
+  // Ảnh thật của dự án. KHÔNG dùng ảnh scan giấy tờ của dự án khác làm minh hoạ.
+  image: "/images/le-dong-tho-2.jpg",
   points: [
     "Quỹ đất sạch có nguồn gốc từ đấu giá công khai theo quy định pháp luật.",
     "Không vướng đền bù, giải phóng mặt bằng hay tranh chấp dân sự.",
