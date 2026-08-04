@@ -52,27 +52,42 @@ khai báo biến trong `.env.local` và trên Vercel (Settings → Environment V
 
 ### Cách A — Google Sheet (miễn phí, dễ xem nhất)
 
-1. Tạo Google Sheet mới, hàng 1 đặt tiêu đề:
-   `time | name | phone | email | interest | note | source | page | ip`
-2. Menu **Tiện ích mở rộng → Apps Script**, dán đoạn sau:
+1. Tạo Google Sheet mới (sheets.new). Không cần gõ tiêu đề cột — script tự tạo.
+2. Menu **Tiện ích mở rộng → Apps Script**, xoá hết code mẫu, dán đoạn sau:
 
 ```javascript
+const COLS = ["time", "name", "phone", "email", "interest", "note", "source", "page", "ip"];
+const HEADERS = ["Thời gian", "Họ tên", "Điện thoại", "Email", "Quan tâm",
+                 "Ghi chú", "Nguồn form", "Trang", "IP"];
+
 function doPost(e) {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+
+  // Lần chạy đầu: tạo hàng tiêu đề và đóng băng nó
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(HEADERS);
+    sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight("bold");
+    sheet.setFrozenRows(1);
+  }
+
   const d = JSON.parse(e.postData.contents);
-  sheet.appendRow([
-    d.time, d.name, d.phone, d.email,
-    d.interest, d.note, d.source, d.page, d.ip,
-  ]);
+  sheet.appendRow(COLS.map((c) => d[c] || ""));
+
   return ContentService.createTextOutput(JSON.stringify({ ok: true }))
     .setMimeType(ContentService.MimeType.JSON);
 }
 ```
 
-3. **Triển khai → Tùy chọn triển khai mới → Ứng dụng web**
+3. Bấm **Lưu** (biểu tượng đĩa mềm), đặt tên project tuỳ ý.
+4. **Triển khai → Tuỳ chọn triển khai mới** → bấm icon bánh răng → chọn **Ứng dụng web**:
    - Thực thi với tên: **Tôi**
    - Ai có quyền truy cập: **Bất kỳ ai**
-4. Copy URL Web App → dán vào biến `GOOGLE_SHEET_WEBHOOK_URL`.
+   - → **Triển khai** → cấp quyền (chọn tài khoản → *Nâng cao* → *Chuyển đến ... (không an toàn)* → **Cho phép**)
+5. Copy **URL ứng dụng web** (dạng `https://script.google.com/macros/s/AKfy.../exec`)
+   → dán vào biến `GOOGLE_SHEET_WEBHOOK_URL`.
+
+> Mỗi lần sửa code phải **Triển khai → Quản lý các bản triển khai → sửa → Phiên bản: Mới**
+> thì thay đổi mới có hiệu lực (URL giữ nguyên).
 
 ### Cách B — Email qua Resend ✅ (đang dùng)
 
