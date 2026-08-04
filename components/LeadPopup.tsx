@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import LeadForm from "./LeadForm";
 
-const DELAY_MS = 20_000; // hiện popup sau 20 giây kể từ khi mở trang
+const DELAY_MS = 15_000; // hiện popup sau 15 giây kể từ khi mở trang
 const RETRY_MS = 15_000; // nếu lúc đó khách đang ở form thì 15 giây sau thử lại
 const STORAGE_KEY = "lead-popup-seen";
 
