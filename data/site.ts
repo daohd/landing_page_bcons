@@ -8,7 +8,7 @@ export const site = {
   name: "Bcons Central Park",
   altName: "Bcons Tam Hiệp — Bcons Biên Hòa",
   tagline: "Tâm điểm an cư All-in-One giữa trung tâm Biên Hòa",
-  domain: "https://landing-page-bcons-liart.vercel.app", // đổi khi mua domain riêng
+  domain: "https://bcons-liart.vercel.app", // đổi khi mua domain riêng
   description:
     "Bcons Central Park (Bcons Tam Hiệp) — dự án căn hộ cao tầng thứ 21 của Tập đoàn Bcons tại 236 Phan Trung, phường Tam Hiệp, TP. Biên Hòa, Đồng Nai. Tổng vốn 4.500 tỷ, quy mô gần 3ha, 2.820 căn hộ. Giá dự kiến từ 45 triệu/m².",
 
