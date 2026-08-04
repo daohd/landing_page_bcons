@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#123055"/>
+      <stop offset="100%" stop-color="#2a5586"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="900" fill="url(#g)"/>
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.07" stroke-width="2">
+    <line x1="0" y1="0" x2="900" y2="900"/>
+    <line x1="116.66666666666667" y1="0" x2="1016.6666666666666" y2="900"/>
+    <line x1="233.33333333333334" y1="0" x2="1133.3333333333333" y2="900"/>
+    <line x1="350" y1="0" x2="1250" y2="900"/>
+    <line x1="466.6666666666667" y1="0" x2="1366.6666666666667" y2="900"/>
+    <line x1="583.3333333333334" y1="0" x2="1483.3333333333335" y2="900"/>
+    <line x1="700" y1="0" x2="1600" y2="900"/>
+    <line x1="816.6666666666667" y1="0" x2="1716.6666666666667" y2="900"/>
+    <line x1="933.3333333333334" y1="0" x2="1833.3333333333335" y2="900"/>
+    <line x1="1050" y1="0" x2="1950" y2="900"/>
+    <line x1="1166.6666666666667" y1="0" x2="2066.666666666667" y2="900"/>
+    <line x1="1283.3333333333335" y1="0" x2="2183.3333333333335" y2="900"/>
+  </g>
+  <text x="50%" y="49%" text-anchor="middle" font-family="Arial, Helvetica, sans-serif"
+        font-size="54" font-weight="bold" fill="#c9a227" letter-spacing="2">BẢN ĐỒ VỊ TRÍ</text>
+  <text x="50%" y="57%" text-anchor="middle" font-family="Arial, Helvetica, sans-serif"
+        font-size="25" fill="#ffffff" fill-opacity="0.55">ẢNH MINH HOẠ — THAY BẰNG ẢNH THẬT (1400×900)</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1f3a"/>
+      <stop offset="100%" stop-color="#14335c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#g)"/>
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.07" stroke-width="2">
+    <line x1="0" y1="0" x2="1080" y2="1080"/>
+    <line x1="160" y1="0" x2="1240" y2="1080"/>
+    <line x1="320" y1="0" x2="1400" y2="1080"/>
+    <line x1="480" y1="0" x2="1560" y2="1080"/>
+    <line x1="640" y1="0" x2="1720" y2="1080"/>
+    <line x1="800" y1="0" x2="1880" y2="1080"/>
+    <line x1="960" y1="0" x2="2040" y2="1080"/>
+    <line x1="1120" y1="0" x2="2200" y2="1080"/>
+    <line x1="1280" y1="0" x2="2360" y2="1080"/>
+    <line x1="1440" y1="0" x2="2520" y2="1080"/>
+    <line x1="1600" y1="0" x2="2680" y2="1080"/>
+    <line x1="1760" y1="0" x2="2840" y2="1080"/>
+  </g>
+  <text x="50%" y="49%" text-anchor="middle" font-family="Arial, Helvetica, sans-serif"
+        font-size="74" font-weight="bold" fill="#c9a227" letter-spacing="2">PHỐI CẢNH TỔNG THỂ</text>
+  <text x="50%" y="57%" text-anchor="middle" font-family="Arial, Helvetica, sans-serif"
+        font-size="35" fill="#ffffff" fill-opacity="0.55">ẢNH MINH HOẠ — THAY BẰNG ẢNH THẬT (1920×1080)</text>
+</svg>
